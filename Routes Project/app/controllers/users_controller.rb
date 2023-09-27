@@ -21,11 +21,24 @@ class UsersController < ApplicationController
 
     def update
         user = User.find([params[:id]])
-        
+        if user.update(user_params)
+            redirect_to user_url(user)
+        else
+            render user.errors.full_messages, status: 422
+        end
     end
 
     def destroy
         user = User.find_by(params[:id])
-        user.destroy
+        if user && user.destroy
+            redirect_to user_url
+        else
+            render json: {'error': 'User doesnt exist'}
+        end
+    end
+
+    private
+    def user_params
+        params.require(:user).permit(:username)
     end
 end 
