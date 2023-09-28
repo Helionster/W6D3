@@ -10,15 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_27_194706) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_28_150703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
+  create_table "artwork_shares_tables", force: :cascade do |t|
+    t.bigint "artwork_id", null: false
+    t.bigint "viewer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["artwork_id"], name: "index_artwork_shares_tables_on_artwork_id"
+    t.index ["viewer_id"], name: "index_artwork_shares_tables_on_viewer_id"
   end
 
+  create_table "artwork_tables", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "image_url", null: false
+    t.bigint "artist_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_artwork_tables_on_artist_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "username"
+    t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  add_foreign_key "artwork_tables", "users", column: "artist_id"
 end

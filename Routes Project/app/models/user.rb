@@ -1,4 +1,8 @@
 class User < ApplicationRecord
-    validates :name, presence: true
-    validates :email, presence: true
+    validates :username, presence: true, uniqueness: true
+    validates :title, presence: true
+    validates :image_url, presence: true, uniqueness: true
+    validates :artist_id, presence: true
+    validates :artwork_id, presence: true, uniqueness: true
+    validates :viewer_id, presence: true
 end
