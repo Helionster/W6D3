@@ -29,9 +29,9 @@ class UsersController < ApplicationController
     end
 
     def destroy
-        user = User.find_by(params[:id])
+        user = User.find(params[:id])
         if user && user.destroy
-            redirect_to user_url
+            render json: user
         else
             render json: {'error': 'User doesnt exist'}
         end
