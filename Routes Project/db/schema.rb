@@ -27,9 +27,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_150703) do
     t.string "title", null: false
     t.string "image_url", null: false
     t.bigint "artist_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["artist_id"], name: "index_artwork_tables_on_artist_id"
+    t.index ["image_url"], name: "index_artwork_tables_on_image_url"
+    t.index ["title", "artist_id"], name: "index_artwork_tables_on_title_and_artist_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
